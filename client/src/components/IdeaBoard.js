@@ -83,7 +83,6 @@ export default class IdeaBoard extends Component {
       const updatedIdea = this.state.ideas[i]
       await axios.put(`/api/users/${userId}/ideas/${updatedIdea._id}`, updatedIdea)
       
-
     }
 
   render() {
@@ -92,10 +91,12 @@ export default class IdeaBoard extends Component {
       <div onClick={() => this.handleDelete(idea._id)}>
         X
       </div>
+
       <input type='text' name='title' value={idea.title} 
         onChange={(event) => this.handleChange(event, i)} 
         onBlur={() => this.updateIdea(i)}/>
-      <input type='text' name='title' value={idea.description} 
+
+      <input type='text' name='description' value={idea.description} 
         onChange={(event) => this.handleChange(event, i)} 
         onBlur={() => this.updateIdea(i)}/>
       </StyledIdea>
