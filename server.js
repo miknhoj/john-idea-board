@@ -33,5 +33,8 @@ app.get('/', (req,res) => {
     res.sendFile(__dirname + '/client/build/index.html')
   })
   
+const usersController = require('./routes/usersController')
+
+app.use('/api/users', usersController)
 
 module.exports = app;
