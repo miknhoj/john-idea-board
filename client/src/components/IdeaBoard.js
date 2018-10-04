@@ -12,13 +12,10 @@ const StyledIdea = styled.div`
   width: 30vw; */
   min-width: 200px;
   min-height: 200px;
-  max-width: 300px;
+  max-width: 200px;
   max-height: 300px;
   margin: 10px;
   padding: 10px;
-`
-const StyledTitle = styled.div`
-  font-weight: bold;
 `
 const StyledButton = styled.button`
   background-color: blue;
@@ -30,6 +27,7 @@ const StyledButton = styled.button`
 const StyledIdeaList = styled.div` 
   display: flex;
   font-size: 3vw;
+  flex-wrap: wrap;
 `
 const StyledNav = styled.div `
   display: flex;
@@ -53,7 +51,7 @@ export default class IdeaBoard extends Component {
       const response = await axios.get(`/api/users/${userId}`)
       this.setState({ 
         user: response.data,
-        ideas: response.data.ideas
+        ideas: response.data.ideas.reverse()
       })
     }
 
@@ -61,11 +59,45 @@ export default class IdeaBoard extends Component {
       this.getUser()
     ]
 
+    handleNew = async () => {
+      const userId = this.props.match.params.userId
+      const newIdea = await axios.post(`/api/users/${userId}/ideas`)
+      console.log(newIdea)
+      await this.getUser()
+    }
+
+    handleDelete = async (ideaId) => {
+      const userId = this.props.match.params.userId
+      await axios.delete(`/api/users/${userId}/ideas/${ideaId}`)
+      await this.getUser()
+    }
+
+    handleChange = (event, i) => {
+      const ideas = [...this.state.ideas]
+      ideas[i][event.target.name] = event.target.value
+      this.setState({ ideas })
+    }
+
+    updateIdea = async (i) => {
+      const userId = this.props.match.params.userId
+      const updatedIdea = this.state.ideas[i]
+      await axios.put(`/api/users/${userId}/ideas/${updatedIdea._id}`, updatedIdea)
+      
+
+    }
+
   render() {
     const ideasList = this.state.ideas.map((idea, i) => {
       return (<StyledIdea key={i}>
-      <StyledTitle>{idea.title}</StyledTitle>
-      <div>{idea.description}</div>
+      <div onClick={() => this.handleDelete(idea._id)}>
+        X
+      </div>
+      <input type='text' name='title' value={idea.title} 
+        onChange={(event) => this.handleChange(event, i)} 
+        onBlur={() => this.updateIdea(i)}/>
+      <input type='text' name='title' value={idea.description} 
+        onChange={(event) => this.handleChange(event, i)} 
+        onBlur={() => this.updateIdea(i)}/>
       </StyledIdea>
       )
     })
@@ -75,8 +107,8 @@ export default class IdeaBoard extends Component {
       <StyledHeader>
         <h1>{this.state.user.userName}'s Idea Board</h1>
       </StyledHeader>
-      <StyledNav >
-        <StyledButton>New Idea</StyledButton>
+      <StyledNav>
+        <StyledButton onClick={this.handleNew}>New Idea</StyledButton>
         <StyledSort>Sort Ideas By:</StyledSort>
       </StyledNav>
         <StyledIdeaList>{ideasList}</StyledIdeaList>

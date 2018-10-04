@@ -33,7 +33,10 @@ app.get('/', (req,res) => {
   })
   
 const usersController = require('./routes/usersController')
-
 app.use('/api/users', usersController)
+
+const ideasController = require('./routes/ideasController')
+app.use('/api/users/:userId/ideas', ideasController)
+
 
 module.exports = app;
