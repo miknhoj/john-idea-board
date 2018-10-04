@@ -2,7 +2,7 @@ const Schema = require('mongoose').Schema
 
 const IdeaSchema = new Schema({
     title: String,
-    descriptino: String
+    description: String
 })
 
 const UserSchema = new Schema({

@@ -33,8 +33,9 @@ export default class Login extends Component {
       const usersList = this.state.users.map((user, i) => {
           return (
           <div>
-          <Link to={`/users/${user._id}`}div key={i}>Name: {user.userName}
-          </Link>
+            <Link to={`/users/${user._id}`} key={i}>
+                Name: {user.userName}
+            </Link>
           </div>
           )
       })
