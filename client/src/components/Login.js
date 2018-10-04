@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+`
 
 export default class Login extends Component {
     state = {
@@ -32,10 +37,10 @@ export default class Login extends Component {
   render() {
       const usersList = this.state.users.map((user, i) => {
           return (
-          <div>
-            <Link to={`/users/${user._id}`} key={i}>
+          <div key={i}>
+            <StyledLink to={`/users/${user._id}`}>
                 Name: {user.userName}
-            </Link>
+            </StyledLink>
           </div>
           )
       })
