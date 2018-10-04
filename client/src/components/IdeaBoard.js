@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 
+
+// Styled Components
 const StyledHeader = styled.div`
   text-align: center;
 `
@@ -58,7 +60,8 @@ export default class IdeaBoard extends Component {
     user: {},
     ideas: []
   }
-
+// I forget what's going on here - I think we are calling the backend using axios to
+// get the userId so that we can reference it on the front end.
   getUser = async () => {
     const userId = this.props.match.params.userId
     const response = await axios.get(`/api/users/${userId}`)
@@ -68,10 +71,13 @@ export default class IdeaBoard extends Component {
     })
   }
 
+// ??? Component mounts to get the User ID
   componentDidMount = () => [
     this.getUser()
   ]
 
+// Handles the onClick for New Idea - makes a call to the backend and
+// creates a new user in the database(?)
   handleNew = async () => {
     const userId = this.props.match.params.userId
     const newIdea = await axios.post(`/api/users/${userId}/ideas`)

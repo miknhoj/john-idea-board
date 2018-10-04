@@ -41,9 +41,9 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     User.findById(req.params.userId)
         .then(user => {
-            return user.update({ $pull: {ideas: { _id: req.params.id } } })
+            return user.update({ $pull: { ideas: { _id: req.params.id } } })
         })
-        .then (user => {
+        .then(user => {
             res.send(user)
         })
 })

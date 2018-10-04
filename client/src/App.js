@@ -1,8 +1,10 @@
+// Importing the components and tools we need to use React and route components
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import IdeaBoard from './components/IdeaBoard';
 import Home from './components/Home';
 import Login from './components/Login';
+
 
 class App extends Component {
   render() {
