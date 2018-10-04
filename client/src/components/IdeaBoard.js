@@ -46,7 +46,7 @@ const StyledTitle = styled.input`
   background-color: transparent;
   border: 0px;
 `
-const StyledDescription = styled.input`
+const StyledDescription = styled.textarea`
   background-color: transparent;
   border: 0px;
 `
