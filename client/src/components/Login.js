@@ -3,11 +3,15 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+// syling for the Link
 const StyledLink = styled(Link)`
     text-decoration: none;
 `
 
 export default class Login extends Component {
+// setting the state so that our functions can add new users to the array of users
+// and a new user object can take a userName to add to the array - following our
+// schema design    
     state = {
         users: [],
         newUser: {
@@ -15,11 +19,13 @@ export default class Login extends Component {
         }
     }
 
+// when the component mounts it makes a call to our api of users and gets the data
     componentDidMount = async () => {
         const response = await axios.get('/api/users')
         this.setState({ users: response.data }) 
     }
 
+// 
     handleChange = (event) => {
         const newUser = {...this.state.newUser}
         newUser[event.target.name] = event.target.value
