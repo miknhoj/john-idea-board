@@ -85,7 +85,7 @@ export default class IdeaBoard extends Component {
     await this.getUser()
   }
 
-// Delete function - sends server request to delete Idea that is deleted. 
+// Delete function - sends server request to delete Idea that the user deleted. 
   handleDelete = async (ideaId) => {
     const userId = this.props.match.params.userId
     await axios.delete(`/api/users/${userId}/ideas/${ideaId}`)
@@ -94,6 +94,7 @@ export default class IdeaBoard extends Component {
 
 // Handles the change that is occuring when user changes the input on title and description
   handleChange = (event, i) => {
+    // ... is a spread operator - pulls out the ideas from state and make a copy so that we can edit it. 
     const ideas = [...this.state.ideas]
     ideas[i][event.target.name] = event.target.value
     this.setState({ ideas })
