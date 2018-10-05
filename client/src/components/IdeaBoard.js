@@ -85,18 +85,21 @@ export default class IdeaBoard extends Component {
     await this.getUser()
   }
 
+// Delete function - sends server request to delete Idea that is deleted. 
   handleDelete = async (ideaId) => {
     const userId = this.props.match.params.userId
     await axios.delete(`/api/users/${userId}/ideas/${ideaId}`)
     await this.getUser()
   }
 
+// Handles the change that is occuring when user changes the input on title and description
   handleChange = (event, i) => {
     const ideas = [...this.state.ideas]
     ideas[i][event.target.name] = event.target.value
     this.setState({ ideas })
   }
 
+// Handles updating by calling the server and sending the updated data for idea
   updateIdea = async (i) => {
     const userId = this.props.match.params.userId
     const updatedIdea = this.state.ideas[i]
@@ -105,6 +108,8 @@ export default class IdeaBoard extends Component {
   }
 
   render() {
+  
+  // Goes through the array of ideas and puts them into the format below
     const ideasList = this.state.ideas.map((idea, i) => {
       return (<StyledIdea key={i}>
         <StyledDelete onClick={() => this.handleDelete(idea._id)}>
@@ -123,6 +128,8 @@ export default class IdeaBoard extends Component {
     })
 
     return (
+    
+// Displays the contents of the component on the page
       <div>
         <StyledHeader>
           <h1>{this.state.user.userName}'s Idea Board</h1>
