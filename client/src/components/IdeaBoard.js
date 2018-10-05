@@ -76,7 +76,7 @@ export default class IdeaBoard extends Component {
     this.getUser()
   ]
 
-// Handles the onClick for New Idea - makes a call to the backend and
+// This function is run when triggered by the onClick for New Idea is  - makes a call to the backend and
 // creates a new user in the database(?)
   handleNew = async () => {
     const userId = this.props.match.params.userId
